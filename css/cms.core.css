@@ -1,0 +1,236 @@
+html,body{
+	display: block;
+	position: relative;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+s-page s-content,
+s-page s-bar,
+s-page s-toolbar,
+s-page s-navbar,
+s-page s-aside,
+s-page s-header,
+s-page s-footer,
+s-page s-head,
+s-page s-foot,
+s-page s-footer-inner,
+s-page s-header-inner,
+s-page s-main
+{
+	display: block;
+	box-sizing: border-box;
+}
+
+s-page *,s-page {
+	box-sizing: border-box;
+	position: relative;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+/*default*/
+
+body.s-default {
+	
+}
+
+body.s-default s-content.s-aside-0{ 
+	width:100%;
+	left: 0px;
+}
+
+body.s-default s-content.s-aside-1{ 
+	width : calc(100% - 250px);
+}
+
+body.s-default s-content.s-aside-2{ 
+	width : calc(100% - 500px);
+}
+
+body.s-default s-navbar,
+body.s-default  s-toolbar,
+body.s-default s-bar,
+body.s-default s-header {
+	width: 100%;
+}
+
+body.s-default s-header {
+	height: 50px;
+}
+
+body.s-default s-main {
+	display: table;
+	display: flow-root;
+}
+body.s-default .s-center{
+	width: 1100px;
+	margin: auto;
+}
+
+/* Kjo pjese do te jete update me vone me flex */
+body.s-default s-aside {
+	float: left;
+	width: 250px;
+}
+
+body.s-default s-content {
+	float: left;
+	width: calc(100% - 500px);
+}
+
+body.s-default s-foot {
+	float: left;
+	width: 100%;
+}
+
+
+body.s-default s-footer {
+	
+}
+
+/*fixed*/
+body.s-fixed{
+	padding-top: 50px;
+}
+
+body.s-fixed s-header{
+	position: fixed;
+	top:0px;
+	left: 0px;
+	width:100%;
+	height: 50px;
+
+}
+
+body.s-fixed .s-center{
+	width: 1100px;
+	margin: auto;
+}
+
+body.s-fixed s-aside{
+	position:fixed;
+	float: left;
+	width: 250px;
+}
+
+body.s-fixed s-aside.s-fixed-right{
+	right: calc(50% - 550px);
+}
+
+body.s-fixed s-content.s-aside-0{ 
+	width:100%;
+	left:0;
+}
+
+body.s-fixed s-content.s-aside-1{ 
+	width: calc(100% - 250px);
+}
+
+body.s-fixed s-content.s-aside-2{
+	width: calc(100% - 500px);
+}
+
+body.s-fixed s-content{
+	float: left;
+	width: calc(100% - 500px);
+	left:250px;
+
+}
+
+body.s-fixed s-footer{
+	width:100%;
+	float:left;
+}
+
+
+/* Sticky aside */
+html.s-sticky-container,
+body.s-sticky-container,
+s-page.s-sticky-container {
+	display: block;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+s-page.s-sticky-container {
+	overflow:auto;
+	overflow: overlay;
+}
+
+body.s-sticky-aside{
+
+}
+
+body.s-sticky-aside s-header{
+	height: 50px;
+}
+
+body.s-sticky-aside s-header.s-sticked{
+	/*position: fixed; kjo nuk do te duhet por un e lashe si koment*/
+}
+
+body.s-sticky-aside .s-center{
+	width: 1100px;
+	margin: auto;
+}
+
+body.s-sticky-aside s-aside.s-sticked{
+	position: fixed;
+	bottom: 0px;
+	top:50px;
+}
+
+body.s-sticky-aside s-aside {
+	float: left;
+	width: 250px;
+}
+
+
+.s-fixed-right.s-sticked.s-move {
+	right: calc(50% - 542px); /*kjo duhet por duhet pasur kujdes qe te ndyshohet nqs perdoret nga userat pasi ata i japin widht te ndryshem left side*/ 
+}
+
+body.s-sticky-aside s-aside.s-fixed-right {
+	right: calc(50% - 550px);
+}
+
+body.s-sticky-aside s-content.s-aside-0{
+	width:100%;
+	left:0;
+}
+
+body.s-sticky-aside s-content.s-aside-1{
+	width: calc(100% - 250px);
+}
+
+body.s-sticky-aside s-content.s-aside-2{
+	width: calc(100% - 500px);
+}
+
+body.s-sticky-aside s-content {
+	float: left;
+	width: calc(100% - 500px);
+	left: 0px;
+}
+
+body.s-sticky-aside s-content.s-sticked {
+	left: 250px;
+}
+
+body.s-sticky-aside s-footer{
+	width:100%;
+	float:left;
+}
+
+.s-sticky{
+	position: -webkit-sticky;
+  	position: sticky;
+  	top:0px;
+}
