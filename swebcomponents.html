@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <template id="s-header">
+      <div>
+        <h3>
+          Kjo duhet te shfaqe nje header : {{ type }}
+        </h3>
+      </div>
+    </template>
+    <script>
+      parent.Vue.component('s-header' ,{
+        data: function () {
+          return {
+            type: 3
+          }
+        },
+        template: document.getElementById("s-header").innerHTML
+      })
+    </script>
+  </head>
+</html>

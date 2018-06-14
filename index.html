@@ -2,18 +2,30 @@
   <head>
     <script src="dist/snet.js"></script>
     <script>
-      test();
     </script>
   
     
   </head>
   <body>
-    <!-- load the element -->
-    
- 
-    <!-- use the element -->
-    <script type="module" src="my-element.js"></script>
-    <my-element></my-element>
+    <div id="vue-components-container">
+      <span>{{ this.test }}</span>
+      <s-header></s-header>
+      <button-counter></button-counter>
+    </div>
 
+    <script type="text/javascript">
+      window.onload = function() {
+        console.log(Vue.components);
+        let s = new Vue({
+          data: {
+            test: 3
+          },
+          el: '#vue-components-container'
+        });
+      }
+      
+    </script>
+
+    <iframe src="swebcomponents.html"></iframe>
   </body>
 </html>
