@@ -16,7 +16,7 @@
     </div>
 
     <script type="text/javascript">
-      window.onload = function() {
+      $net.ready(function() {
         console.log(Vue.components);
         let s = new Vue({
           data: {
@@ -26,7 +26,7 @@
           el: '#vue-components-container'
         });
       
-      }
+      });
     
     </script>
     <iframe src="swebcomponents.html"></iframe>
