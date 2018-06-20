@@ -1,11 +1,12 @@
-window.$net.ready(function () { //kjo tani duhet te shihet dhe nga ti sepse eshte e rendesishme
+export default function () { //kjo tani duhet te shihet dhe nga ti sepse eshte e rendesishme
+    let $scrollableElement;
 	if($(document.body).hasClass('s-sticky-container')){
 		$scrollableElement = $('s-page');
 	}else{
 		$scrollableElement = $(window);
     }
 
-	$scrollableElement.on("scroll",function() {
+    $scrollableElement.on("scroll",function() {
         var stickyHeight = $('.s-sticky').height() * ($('.s-sticky').length -1);
         var scrollTop = $scrollableElement.scrollTop();
         var scrollTopTrigger = scrollTop >= stickyHeight;
@@ -20,7 +21,7 @@ window.$net.ready(function () { //kjo tani duhet te shihet dhe nga ti sepse esht
             $("body.s-sticky-aside s-content").removeClass("s-sticked");
         }
 
-        if(isFirefox){
+        if (isFirefox) {
             if(scrollTopTrigger){
                 $("body.s-sticky-aside s-aside.s-fixed-right").addClass("s-move");
             }else {
@@ -28,5 +29,4 @@ window.$net.ready(function () { //kjo tani duhet te shihet dhe nga ti sepse esht
             }
         }
     });
-
-});
+}

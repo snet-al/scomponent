@@ -1,4 +1,4 @@
-$net={
+let $net = {
     root_path: ( (typeof root_path!='undefined' && root_path) ? root_path : 'lib' ),
     ver: ((typeof snet_ver != 'undefined' && snet_ver) ? snet_ver : ''),
     dom: window.jQuery,
@@ -8,38 +8,18 @@ $net={
     data: {},
     //components
     cmp: {},
+    ready: null,
     onready: [],
     iframes: {
         cmp: {},
         user: {}
     }
 };
-alert("Eshte ok !!");
 $net.ready = function(fn) {
     $net.onready.push(fn || function(){});
 };
 
-window.onload = function() {
-    var systemTemplateIframes = $net.dom("iframe[data-snet-tpl]");
-    for(var i=0; i < systemTemplateIframes.length; i++){
-        $net.iframes.cmp[ "_" + systemTemplateIframes.eq(i).attr('data-snet-tpl')  ] = systemTemplateIframes.eq(i);
-    }
-
-    var userTemplateIframes = $net.dom("iframe[data-templates]");
-    for (i=0; i<userTemplateIframes.length; i++){
-        $net.iframes.user[ "_" + userTemplateIframes.eq(i).attr("data-templates")] = userTemplateIframes.eq(i);
-    }
-
-    for(i=0; i < $net.onready.length; i++){
-        $net.onready[i]();
-    }
-    
-    $net.onready = null;
-    delete $net.onready;
-};
-
 $net.view = {
-
     create: function(config) {
         var templateString = "";
         if(config.template) {
@@ -747,5 +727,29 @@ $net.store = (function(){
 
     return storeBuilder;
 })();
+
+
+
+function windowOnLoad() {
+    var systemTemplateIframes = $net.dom("iframe[data-snet-tpl]");
+    for(var i=0; i < systemTemplateIframes.length; i++){
+        $net.iframes.cmp[ "_" + systemTemplateIframes.eq(i).attr('data-snet-tpl')  ] = systemTemplateIframes.eq(i);
+    }
+  
+    var userTemplateIframes = $net.dom("iframe[data-templates]");
+    for (i=0; i<userTemplateIframes.length; i++){
+        $net.iframes.user[ "_" + userTemplateIframes.eq(i).attr("data-templates")] = userTemplateIframes.eq(i);
+    }
+  
+    for(i=0; i < $net.onready.length; i++){
+        $net.onready[i]();
+    }
+    
+    $net.onready = null;
+    delete $net.onready;
+};
+window.addEventListener('load', windowOnLoad);
+
+$net.ready(require('./cms').default);
 
 export default $net;
