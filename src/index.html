@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+ <html class="s-sticky-container">
+ <head>
+ 	<title></title>
+
+ 	 <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
+     <link rel="stylesheet" href="libs/font-awsome/web-fonts-with-css/css/fontawesome-all.min.css">
+
+
+	 <link rel="stylesheet" type="text/css" href="css/cms.core.css">
+	 <link rel="stylesheet" type="text/css" href="css/cms.devel.css">
+
+
+     <script src="libs/webcomponents/webcomponents.js"></script>
+     <script src="libs/jquery/jquery-3.2.1.min.js"></script>
+	 <script src="libs/vue/vue.min.js"></script>
+	 <script src="libs/handlebars/handlebars-v4.0.11.js"></script>
+	 <script src="libs/bootstrap/js/popper.min.js"></script>
+	 <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+	 <script src="libs/snet/snet.js"></script>
+
+
+	 <!-- Cms Library -->
+	 <script src="js/cms.js"></script>
+	 <script src="test.js"></script>
+
+ </head>
+ <body class="s-sticky-aside s-sticky-container">
+ 	<s-page class="s-sticky-container">
+	 	<s-header class="s-sticky">
+	 		<s-header-inner class="s-center"></s-header-inner>
+	 	</s-header>
+	   	<s-header class="s-sticky"></s-header>
+	   	<s-header class="s-sticky"></s-header>
+	 
+	 	<s-sidenav class=""></s-sidenav>
+	 	
+	 	<s-main class="s-center">
+	 		<s-navbar class=""></s-navbar>
+		 	<s-toolbar></s-toolbar>
+		 	<s-bar></s-bar>	
+		 	
+		 	<s-aside id="tpl-ct">
+				<s-navbar class=""></s-navbar>
+			 	<s-toolbar></s-toolbar>
+			 	<s-bar></s-bar>	
+		 	</s-aside>
+		 	
+		 	<s-content class="">
+		 		<s-navbar class=""></s-navbar>
+			 	<s-toolbar></s-toolbar>
+			 	<s-bar></s-bar>
+				<div>
+			 		
+				</div>
+		 	</s-content>
+		 	<s-aside class="s-fixed-right">
+			 	<s-navbar class=""></s-navbar>
+			 	<s-toolbar></s-toolbar>
+			 	<s-bar></s-bar>	
+		 	</s-aside>
+		 		
+	 		
+		 	<s-foot class=""></s-foot>
+ 		</s-main>
+
+	 	<s-sidenav></s-sidenav>
+	 		
+	 	<s-footer class=""></s-footer>
+	 		
+ 	 </s-page>
+ 	
+
+ 	<template id="id_of_template">
+ 		<span>{{name}}</span>
+ 	</template>
+	<!-- <template id="user_template"></template> -->
+
+ 	<iframe id="iframe-templates" src="templates.html"></iframe>
+
+
+	<iframe data-cmp="1" src="templates.html"></iframe>
+
+	<!-- User Iframe -->
+ 	<iframe data-templates="1" src="templates1.html"></iframe>
+	<iframe data-templates="2" src="templates2.html"></iframe>
+	<iframe data-templates="3" src="templates.html"></iframe>
+
+	<!-- Snet Iframe -->
+
+	<iframe data-snet-tpl="1" src="templates.html"></iframe>
+	<iframe data-snet-tpl="2" src="templates1.html"></iframe>
+	<iframe data-snet-tpl="3" src="templates2.html"></iframe>
+
+
+
+ </body>
+</html>

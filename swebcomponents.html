@@ -5,17 +5,42 @@
         <h3>
           Kjo duhet te shfaqe nje header : {{ type }}
         </h3>
+        <h1>{{header}}</h1>
       </div>
     </template>
+
+
+    <template id="s-test">
+      <div>
+        {{test1}}
+      </div>
+    </template>
+
+
     <script>
       parent.Vue.component('s-header' ,{
         data: function () {
           return {
-            type: 3
+            type: 3,
+            header:"testtt"
           }
         },
         template: document.getElementById("s-header").innerHTML
       })
+    </script>
+ <!-- new component  -->
+    <script>
+    parent.Vue.component('s-tag',{
+      data: function(){
+        return{
+          test1:"testi",
+        }
+      },
+      methods: onclick=function (){
+        alert(1);
+      },
+      template: document.getElementById("s-test").innerHTML
+    })
     </script>
   </head>
 </html>
