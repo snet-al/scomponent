@@ -8,5 +8,5 @@ module.exports = {
     filename: '[name].js',
     path: __dirname + '/dist'
   },
-  mode: 'production'
+  mode: 'production',
 };

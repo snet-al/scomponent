@@ -1,0 +1,96 @@
+/*default*/
+
+
+s-page * {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+body.s-default {
+	
+}
+
+
+body.s-default {
+	
+}
+
+body.s-default s-navbar,
+body.s-default  s-toolbar,
+body.s-default s-bar,
+body.s-default s-header {
+	background:#333;
+	
+}
+
+body.s-default s-aside {
+    width: 250px;
+    height: 500px;
+    background: black;
+}
+
+body.s-default s-content {
+	background: #040;
+}
+div {
+	background:red;
+    height: 1000px;
+}
+
+body.s-default s-toolbar{
+    background: #545454;
+}
+
+body.s-default s-bar {
+    background: #615d5d;
+}
+body.s-default s-foot {
+    background: #698;
+    height:30px;
+}
+
+body.s-default s-footer {
+    height: 300px;
+    background: #000;
+}
+/*fixed*/
+body.s-fixed s-header {
+	background: #000;
+}
+
+body.s-fixed s-aside {
+	background: #005;
+	height:500px;
+}
+
+body.s-fixed s-content {
+	background: #005;
+}
+
+body.s-fixed s-footer{
+	height:300px;
+	background:#000;
+}
+
+/* Sticky aside */
+
+body.s-sticky-aside s-header {
+    background: #000;
+}
+
+body.s-sticky-aside s-aside {
+    background: #005;
+    height: 500px;
+    z-index: 5;
+}
+
+body.s-sticky-aside s-content {
+    background: #005;
+}
+
+body.s-sticky-aside s-footer{
+    height:300px;
+    background:#000;
+}

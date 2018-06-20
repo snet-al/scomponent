@@ -9,7 +9,9 @@
   <body>
     <div id="vue-components-container">
       <span>{{ this.test }}</span>
+      <h1>{{this.header}}</h1>
       <s-header></s-header>
+      <s-tag></s-tag>
       <button-counter></button-counter>
     </div>
 
@@ -18,14 +20,18 @@
         console.log(Vue.components);
         let s = new Vue({
           data: {
-            test: 3
+            test: 3,
+            header:' header !'
           },
           el: '#vue-components-container'
         });
-      }
       
+      }
+    
     </script>
-
     <iframe src="swebcomponents.html"></iframe>
+
+
+    
   </body>
 </html>
