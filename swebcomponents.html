@@ -2,33 +2,42 @@
   <head>
     <template id="s-header">
       <div>
-        <h3>
-          Kjo duhet te shfaqe nje header : {{ type }}
+        <h3 v-on:click="onclickfun">
+          Kjo duhet te shfaqe nje alert : {{ type }}
         </h3>
-        <h1>{{header}}</h1>
+        <h1>{{title}}</h1>
       </div>
     </template>
-
-
-    <template id="s-test">
-      <div>
-        {{test1}}
-      </div>
-    </template>
-
 
     <script>
-      parent.Vue.component('s-header' ,{
+      
+      parent.Vue.component('s-button' ,{
+        props:["title"],
         data: function () {
+         
           return {
             type: 3,
             header:"testtt"
           }
         },
+        methods:{
+          onclickfun:function (){
+            alert(2);
+          },
+          
+        },
         template: document.getElementById("s-header").innerHTML
       })
     </script>
  <!-- new component  -->
+
+ <template id="s-test">
+  <div>
+    {{test1}}
+  </div>
+</template>
+
+
     <script>
     parent.Vue.component('s-tag',{
       data: function(){
@@ -36,11 +45,10 @@
           test1:"testi",
         }
       },
-      methods: onclick=function (){
-        alert(1);
-      },
       template: document.getElementById("s-test").innerHTML
     })
+
+
     </script>
   </head>
 </html>
