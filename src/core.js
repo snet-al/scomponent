@@ -6,6 +6,7 @@ let $net = {
     loader: {},
     //data
     data: {},
+    store: {},
     //components
     cmp: {},
     ready: null,
@@ -187,6 +188,8 @@ $net.view = {
 
     },
     vue: function (name, config) {
+        var templateString = "";
+        let elementReference;
         if (!config && typeof name == "object") {
             config = name;
         }
@@ -194,11 +197,9 @@ $net.view = {
         if (config.el) {
             elementReference = config.el;
         } else {
-            var templateString = "";
             name = config.stype || config.type;
-
             if (name) {
-                for (var i in $net.iframes.cmp) {
+                for (let i in $net.iframes.cmp) {
                     templateString = $net.iframes.cmp[i].contents().find(name).html();
                     if (templateString && templateString != "") {
                         break;
@@ -224,116 +225,15 @@ $net.view = {
 };
 
 /*DATA STORE*/
-$net.data = {
-    Model:function(object){
-        this.fields = [];
-        this.create = function(o){
-            var createrConstructor = function(data){
-                this.data = data;
-                //this.get=function(p){return this.data[p];};//
-            };
-            var data = [];
-            var i = null;
-
-            for(i in o){
-
-                if(this.fields[i]){
-                    data[i]=o[i];
-                }else{
-                    data[i]=o[i];
-                }
-
-            }
-
-            return new createrConstructor(data);
-
-
-        };
-
-        if(object && object.fields && typeof object.fields[0]=="string" ){
-            var fName=null;
-            for(fName in object.fields){
-                this.fields[object.fields[fName]]="string";
-            }
-        }else if(object && object.fields && typeof object.fields[0]=="object" ){
-            var fObj=null,obj=null;
-
-            for (fObj in object.fields){
-                obj=object.fields[fObj];
-                if(obj.name && obj.type){
-                    this.fields[obj.name]=obj.type;
-                }else if(obj.name && !obj.type){
-                    this.fields[obj.name]="string";
-                }else {
-                    console.log("vendos ne rregull te dhenat");
-                }
-            }
-        }else{//asgje
-        }
-    },
-    Store: function(config){
-        var j = 0;
-        var data = [];
-
-        if(config && config.model && typeof config.model=="object" && typeof config.data[0]=="object"){
-            this.model = config.model;
-            var mod = config.model;
-            var d, x;
-            for(i in config.data){
-                d = config.data[i];
-                x = mod.create(d);
-                data[j] = x;
-                j++;
-            }
-        }
-
-        this.getAt = function (i){
-            return data[i];
-        };
-
-        this.get = function(){
-            return data;
-        };
-
-        this.findBy = function (f,v){
-            for(i in data){
-                if(data[i].data[f]==v){
-                    return data[i];
-                }
-            }
-        };
-
-        this.count = function(){
-            return (data.length);
-        };
-
-        this.add = function(o){
-            data[j] = this.model.create(o);
-j++;
-};
-
-this.each = function(f){
-    for(j in data){
-        f(data[j]);
-    }
-};
-
-this.data = data;
-}
-};
-
 $net.model = (function(){
     var modelCache = {};
     var MODEL_FIELD_TYPES = ['string', 'int', 'float', 'bool'];
 
     var modelBuilder = function(config){
         if(typeof(config)=='string'){
-
             try{
                 return modelCache[config];
-
             }catch(e){
-
                 console.log(e);
             }
         }
@@ -346,8 +246,8 @@ $net.model = (function(){
     };
 
     ModelInstance.prototype.get = function(property, formating) {
-        var propertyInFields = false, foundField, fieldHasFormating = false;
-        for (fieldIndex in this.model.fields) {
+        var propertyInFields = false, field, foundField, fieldHasFormating = false;
+        for (let fieldIndex in this.model.fields) {
             field = this.model.fields[fieldIndex];
             if (field.name === property) {
                 propertyInFields = true;
@@ -368,8 +268,8 @@ $net.model = (function(){
     };
 
     ModelInstance.prototype.set = function(property, value, formating) {
-        var propertyInFields = false, foundField, typeOfField = 'string';
-        for (fieldIndex in this.model.fields) { 
+        var propertyInFields = false, field, foundField, typeOfField = 'string';
+        for (let fieldIndex in this.model.fields) { 
             field = this.model.fields[fieldIndex];
             if (field.name === property) {
                 propertyInFields = true;
@@ -449,7 +349,7 @@ $net.model = (function(){
 
         var instance = new ModelInstance(self);
 
-        for(var i in self.fields){
+        for(let i in self.fields){
             instance.data[self.fields[i].name] = data[self.fields[i].name] || null;
         }
         return instance;
@@ -610,6 +510,8 @@ $net.store = (function(){
 
     StoreClass.prototype.sort = function(sorters, direction) {
         var self = this;
+        var fieldName = '';
+        var directionToSearch = 'asc';
         if (direction !== undefined && typeof(sorters)== 'string'){
             fieldName = sorters;
             directionToSearch = direction;
@@ -620,7 +522,7 @@ $net.store = (function(){
             console.log()
         }
 
-        for (var i = 0; i<self.data.length;i++){
+        for (var i = 0; i < self.data.length;i++){
             for (var j=i+1; j<self.data.length; j++ ) {
                 if (directionToSearch == 'asc') {
                     if (self.data[i].data[fieldName] > self.data[j].data[fieldName]){
@@ -642,6 +544,8 @@ $net.store = (function(){
 
     StoreClass.prototype.filter = function(filters, value) {
         var self = this;
+        var fieldName = '';
+        var valueToSearch = '';
         if (value !== undefined && typeof(filters) == 'string') {
             fieldName = filters;
             valueToSearch = value;
@@ -676,6 +580,7 @@ $net.store = (function(){
 
     StoreClass.prototype.find = function(fieldName, value) {
         var self = this;
+        var valueToSearch = '';
         self.sorted = [];
         if(value !== undefined && typeof(fieldName)=='string'){
             valueToSearch = value;
