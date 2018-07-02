@@ -13,17 +13,31 @@
       <s-header></s-header>
       <s-tag></s-tag>
       <button-counter></button-counter>
-      <s-button title="Hello world" ></s-button>
+      <s-button @click="clickFn" title="Hello world btn" ></s-button>
       <alert-button></alert-button>
+      kjo duhet te shfaqet poshte:
+      <span @click="clickFn">{{ dataComputed }}</span>
+      <span>{{ dataComputed }}</span>
+      <span>{{ dataComputed }}</span>
     </div>
 
     <script type="text/javascript">
       $net.ready(function() {
         console.log(Vue.components);
-        let s = new Vue({
-          data: {
-            test: 3,
-            header:'header !'
+        let s = $net.module({
+          scope: {
+            test: 4,
+            header:'Header !'
+          },
+          computed: {
+            dataComputed: function() {
+              return this.test ++;
+            }
+          },
+          methods: {
+            clickFn: function() {
+              alert('finally');
+            }
           },
           el: '#vue-components-container'
         });
