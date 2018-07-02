@@ -7,7 +7,8 @@ let $net = {
     //data
     data: {},
     store: {},
-    //components
+    //modules & components
+    module:null,
     cmp: {},
     ready: null,
     onready: [],
@@ -219,10 +220,13 @@ $net.view = {
 
         return new Vue({
             data: config.scope,
-            el: elementReference
+            el: elementReference,
+            computed: config.computed || {},
+            methods: config.methods || {}
         });
     }
 };
+$net.module = $net.view.vue;
 
 /*DATA STORE*/
 $net.model = (function(){
