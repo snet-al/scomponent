@@ -573,7 +573,7 @@ $net.store = (function() {
       fieldName = sorters.property;
       directionToSearch = sorters.direction;
     } else {
-      console.log();
+      console.log('error: not specified parameters');
     }
 
     for (var i = 0; i < self.data.length; i++) {
@@ -612,7 +612,7 @@ $net.store = (function() {
       valueToSearch = filters.value;
     } else {
       console.log(
-        "Nuk eshte konfiguruar sakte: duhet store.filter('name', 'bled') "
+        "Nuk eshte konfiguruar sakte: duhet store.filter('name', 'test') "
       );
       return false;
     }
