@@ -466,6 +466,8 @@ $net.store = (function() {
         self.data.push(self.model.create(data[i]));
       }
     }
+
+    self.original = self.data;
     return self;
   };
 
@@ -474,6 +476,8 @@ $net.store = (function() {
     if (index < self.data.length && index >= 0) {
       self.data.splice(index, 1);
     }
+    
+    self.original = self.data;
     return self;
   };
 
@@ -481,6 +485,7 @@ $net.store = (function() {
     var self = this;
 
     self.data = [];
+    self.original = self.data;
     return self;
   };
 
@@ -612,20 +617,24 @@ $net.store = (function() {
       valueToSearch = filters.value;
     } else {
       console.log(
-        "Nuk eshte konfiguruar sakte: duhet store.filter('name', 'test') "
+        "Nuk eshte konfiguruar sakte: duhet store.filter('name', 'test')"
       );
       return false;
     }
-    self.filtered = [];
-    for (var i = 0; i < self.data.length; i++) {
+
+
+    self.data = [];
+    for (var i = 0; i < self.original.length; i++) {
       var record = self.data[i];
       var result = (record.data[fieldName] + "").match(value);
       if (result && result.length > 0) {
-        self.filtered.push(record);
+        self.data.push(record);
       }
     }
     return self;
   };
+  
+
 
   StoreClass.prototype.filterBy = function(fn) {
     //TODO: duhet implementuar nje filter e store, duhet te ruhet te self.filtered
