@@ -476,7 +476,7 @@ $net.store = (function() {
     if (index < self.data.length && index >= 0) {
       self.data.splice(index, 1);
     }
-    
+
     self.original = self.data;
     return self;
   };
@@ -578,7 +578,7 @@ $net.store = (function() {
       fieldName = sorters.property;
       directionToSearch = sorters.direction;
     } else {
-      console.log('error: not specified parameters');
+      console.log("error: not specified parameters");
     }
 
     for (var i = 0; i < self.data.length; i++) {
@@ -622,10 +622,9 @@ $net.store = (function() {
       return false;
     }
 
-
     self.data = [];
     for (var i = 0; i < self.original.length; i++) {
-      var record = self.data[i];
+      var record = self.original[i];
       var result = (record.data[fieldName] + "").match(value);
       if (result && result.length > 0) {
         self.data.push(record);
@@ -633,8 +632,6 @@ $net.store = (function() {
     }
     return self;
   };
-  
-
 
   StoreClass.prototype.filterBy = function(fn) {
     //TODO: duhet implementuar nje filter e store, duhet te ruhet te self.filtered
