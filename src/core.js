@@ -16,12 +16,12 @@ let $net = {
     user: {}
   }
 };
-$net.ready = function(fn) {
-  $net.onready.push(fn || function() {});
+$net.ready = function (fn) {
+  $net.onready.push(fn || function () {});
 };
 
 $net.view = {
-  create: function(config) {
+  create: function (config) {
     var templateString = "";
     if (config.template) {
       templateString = config.template;
@@ -73,11 +73,11 @@ $net.view = {
     }
   },
   cmpId: 100,
-  generateCmpId: function() {
+  generateCmpId: function () {
     return "scmp_" + ++$net.view.cmpId + "";
   },
   tplConstructors: {},
-  cmp: function(name, config) {
+  cmp: function (name, config) {
     var templateString = "";
     if (!config && typeof name == "object") {
       config = name;
@@ -103,7 +103,10 @@ $net.view = {
       id: id_cmp,
       store: new $net.data.Store({
         model: new $net.data.Model({
-          fields: [{ name: "id", type: "string" }]
+          fields: [{
+            name: "id",
+            type: "string"
+          }]
         }),
         data: config.data || []
       }),
@@ -129,7 +132,7 @@ $net.view = {
 
     return new this.cmpConstructor(config, id_cmp, dom, name);
   },
-  ucmp: function(name, config) {
+  ucmp: function (name, config) {
     var templateString = "";
     if (!config && typeof name == "object") {
       config = name;
@@ -155,7 +158,10 @@ $net.view = {
       id: id_cmp,
       store: new $net.data.Store({
         model: new $net.data.Model({
-          fields: [{ name: "id", type: "string" }]
+          fields: [{
+            name: "id",
+            type: "string"
+          }]
         }),
         data: config.data || []
       }),
@@ -181,7 +187,7 @@ $net.view = {
 
     return new this.cmpConstructor(config, id_cmp, dom, name);
   },
-  cmpConstructor: function(config, id_cmp, dom, name) {
+  cmpConstructor: function (config, id_cmp, dom, name) {
     this.config = config;
     this.id = id_cmp;
     this.dom = dom;
@@ -201,8 +207,8 @@ $net.view = {
         var userfn = config.events[piece][event_name];
         t.on(
           event_name,
-          (function(userfn) {
-            return function(e) {
+          (function (userfn) {
+            return function (e) {
               var id = self.id || id_cmp || "";
               var r = userfn.call(self, e, id, this);
               if (r === false) {
@@ -218,7 +224,7 @@ $net.view = {
       config.onrender();
     }
   },
-  vue: function(name, config) {
+  vue: function (name, config) {
     var templateString = "";
     let elementReference;
     if (!config && typeof name == "object") {
@@ -262,11 +268,11 @@ $net.view = {
 $net.module = $net.view.vue;
 
 /*DATA STORE*/
-$net.model = (function() {
+$net.model = (function () {
   var modelCache = {};
   var MODEL_FIELD_TYPES = ["string", "int", "float", "bool"];
 
-  var modelBuilder = function(config) {
+  var modelBuilder = function (config) {
     if (typeof config == "string") {
       try {
         return modelCache[config];
@@ -277,12 +283,12 @@ $net.model = (function() {
     return new ModelClass(config);
   };
 
-  var ModelInstance = function(Model) {
+  var ModelInstance = function (Model) {
     this.data = {};
     this.model = Model;
   };
 
-  ModelInstance.prototype.get = function(property, formating) {
+  ModelInstance.prototype.get = function (property, formating) {
     var propertyInFields = false,
       field,
       foundField,
@@ -308,7 +314,7 @@ $net.model = (function() {
     return parseFloat(this.data[property]).toFixed(formating);
   };
 
-  ModelInstance.prototype.set = function(property, value, formating) {
+  ModelInstance.prototype.set = function (property, value, formating) {
     var propertyInFields = false,
       field,
       foundField,
@@ -342,7 +348,7 @@ $net.model = (function() {
     return this;
   };
 
-  var ModelClass = function(config) {
+  var ModelClass = function (config) {
     this.fields = [];
     if (!config.name || config.name == "") {
       console.log("Please define a name for the model");
@@ -353,8 +359,7 @@ $net.model = (function() {
       return modelCache[config.name];
     }
 
-    if (
-      !config.fields ||
+    if (!config.fields ||
       typeof config.fields !== "object" ||
       Array.isArray(config.fields) != true
     ) {
@@ -382,7 +387,7 @@ $net.model = (function() {
     modelCache[config.name] = this;
   };
 
-  ModelClass.prototype.create = function(data) {
+  ModelClass.prototype.create = function (data) {
     var self = this;
     if ($.isArray(data)) {
       var instances = [];
@@ -410,10 +415,10 @@ $net.model = (function() {
   return modelBuilder;
 })();
 
-$net.store = (function() {
+$net.store = (function () {
   var storeCache = {};
 
-  var storeBuilder = function(config) {
+  var storeBuilder = function (config) {
     if (typeof config == "string") {
       try {
         return storeCache[config];
@@ -424,7 +429,7 @@ $net.store = (function() {
     return new StoreClass(config);
   };
 
-  var StoreClass = function(config) {
+  var StoreClass = function (config) {
     this.model = null;
     this.data = [];
     this.indices = [];
@@ -459,7 +464,7 @@ $net.store = (function() {
     return this;
   };
 
-  StoreClass.prototype.add = function(data) {
+  StoreClass.prototype.add = function (data) {
     var self = this;
     if ($.isArray(data)) {
       for (let i = 0; i < data.length; i++) {
@@ -471,7 +476,7 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.removeAt = function(index) {
+  StoreClass.prototype.removeAt = function (index) {
     var self = this;
     if (index < self.data.length && index >= 0) {
       self.data.splice(index, 1);
@@ -481,7 +486,7 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.removeAll = function() {
+  StoreClass.prototype.removeAll = function () {
     var self = this;
 
     self.data = [];
@@ -489,12 +494,12 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.getAt = function(index) {
+  StoreClass.prototype.getAt = function (index) {
     var self = this;
     return self.data[index];
   };
 
-  StoreClass.prototype.average = function(fieldName) {
+  StoreClass.prototype.average = function (fieldName) {
     var self = this;
     var canCalculate = false;
     for (let i in self.fields) {
@@ -516,7 +521,7 @@ $net.store = (function() {
     return sum / self.data.length;
   };
 
-  StoreClass.prototype.max = function(fieldName) {
+  StoreClass.prototype.max = function (fieldName) {
     var self = this;
     var canCalculate = false;
     for (let i in self.fields) {
@@ -541,7 +546,7 @@ $net.store = (function() {
     return max;
   };
 
-  StoreClass.prototype.min = function(fieldName) {
+  StoreClass.prototype.min = function (fieldName) {
     var self = this;
     var canCalculate = false;
     for (let i in self.fields) {
@@ -563,7 +568,7 @@ $net.store = (function() {
     return min;
   };
 
-  StoreClass.prototype.sort = function(sorters, direction) {
+  StoreClass.prototype.sort = function (sorters, direction) {
     var self = this;
     var fieldName = "";
     var directionToSearch = "asc";
@@ -601,7 +606,7 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.filter = function(filters, value) {
+  StoreClass.prototype.filter = function (filters, value) {
     var self = this;
     var fieldName = "";
     var valueToSearch = "";
@@ -633,14 +638,23 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.filterBy = function(fn) {
-    //TODO: duhet implementuar nje filter e store, duhet te ruhet te self.filtered
+  StoreClass.prototype.filterBy = function (fn) {
+    if (typeof (fn) !== 'function') {
+      console.log('Error: should use function as parameter for filterBy');
+      return false;
+    }
     var self = this;
     self.data = [];
+    for (var i = 0; i < self.original.length; i++) {
+      var record = self.original[i];
+      if (fn(record)) {
+        self.data.push(record);
+      }
+    }
     return self;
   };
 
-  StoreClass.prototype.find = function(fieldName, value) {
+  StoreClass.prototype.find = function (fieldName, value) {
     var self = this;
     var valueToSearch = "";
     self.sorted = [];
@@ -662,7 +676,7 @@ $net.store = (function() {
     return -1;
   };
 
-  StoreClass.prototype.findRecord = function(fieldName, value) {
+  StoreClass.prototype.findRecord = function (fieldName, value) {
     var self = this;
     if (value !== undefined && typeof fieldName == "string") {
       valueToSearch = value;
@@ -685,7 +699,7 @@ $net.store = (function() {
     return self;
   };
 
-  StoreClass.prototype.findBy = function(fn) {
+  StoreClass.prototype.findBy = function (fn) {
     //TODO: duhet implementuar nje metode find ne store, duhet te kthehet indexi
     var self = this;
     self.data = [];
