@@ -17,8 +17,7 @@
     "url": "https://github.com/snet-al/scomponent/issues"
   },
   "homepage": "https://github.com/snet-al/scomponent#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "css-loader": "^0.28.11",
     "jquery": "^3.3.1",

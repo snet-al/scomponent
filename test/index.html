@@ -1,6 +1,6 @@
 <html>
   <head>
-    <script src="dist/snet.js"></script>
+    <script src="../dist/snet.js"></script>
     <script>
     </script>
   
@@ -21,9 +21,13 @@
       <span>{{ dataComputed }}</span>
     </div>
 
+    <div id="multiplemodules-ct">
+
+    </div>
+
     <script type="text/javascript">
       $net.ready(function() {
-        console.log(Vue.components);
+
         let s = $net.module({
           scope: {
             test: 4,
@@ -41,10 +45,23 @@
           },
           el: '#vue-components-container'
         });
+        var store1 = {a:1}, store2 = 2;
+        let s2 = $net.module({
+          scope: {
+            store1: store1,
+            store2: store2
+          },
+          renderTo: "#multiplemodules-ct",
+          url: './views/app.html',
+          modules:['module#app1', 'module#app2']
+        });
+        setInterval(function () {
+          store1.a = store1.a + 1;
+        }, 5000);
       });
   
     </script>
-    <iframe src="swebcomponents.html"></iframe>
+    <iframe src="./swebcomponents.html"></iframe>
     
   </body>
 </html>

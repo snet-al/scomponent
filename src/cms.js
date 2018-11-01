@@ -1,10 +1,10 @@
-export default function () { //kjo tani duhet te shihet dhe nga ti sepse eshte e rendesishme
+export default function () {
     let $scrollableElement;
 	if($(document.body).hasClass('s-sticky-container')){
 		$scrollableElement = $('s-page');
 	}else{
 		$scrollableElement = $(window);
-    }
+	}
 
     $scrollableElement.on("scroll",function() {
         var stickyHeight = $('.s-sticky').height() * ($('.s-sticky').length -1);
