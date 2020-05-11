@@ -1,5 +1,5 @@
-import Model from './model';
-import Store from './store';
+import Model from '../data/model';
+import Store from '../data/store';
 
 
 interface PersonI {
