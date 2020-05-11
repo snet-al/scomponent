@@ -3,30 +3,34 @@ import Store from './store';
 
 
 interface PersonI {
+    id?:number;
     name?: string;
+    lastName?: string;
     age?: number;
-    address?: string ;
-}
-class Person extends Model<PersonI> {
+    address?: string;
 
+}
+
+ class Person extends Model{
+    private static instance: PersonI = new Person()
+    id: number = 0
+    age: number = 0
+    name: string = ''
+    address: string = ''
+    lastName:string = '';
+
+    public static getInstance(): PersonI {
+      return Person.instance
+    }
 }
 
 // create person one;
-const personData1: PersonI = {name:'name surname',age: 30, address:'grono strasse 1 berlin'}
-const person1 = new Person(personData1);
+const personData1: any = {name:'name surname',age: 30, address:'grono strasse 1 berlin', last_name:'last-Name'}
+const person1 = new Person();
+person1.setTranslateField({last_name:'lastName'});
+person1.factory(personData1)
 console.log(person1);
 
-// create person two;
-
-const personData2: PersonI = {name:'name2 surname',age: 32, address:'grono strasse 2 berlin'}
-const person2 = new Person(personData2);
-
-//create store with both persons
-
-let numbers = new Store<any>(person1);
-numbers.add(person2);
-let allPersons = numbers.getStore();
-console.log('store collection type person',allPersons);
 
 
 
