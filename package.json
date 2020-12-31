@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node main.js",
     "watch": "node watch.js",
+    "tsc": "node node_modules/typescript/bin/tsc src/data/* --outDir dist --target es6",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "val-loader": "^1.1.0",
     "vue": "^2.5.16",
     "webpack": "^4.12.0",
-    "webpack-command": "^0.2.1"
+    "webpack-command": "^0.2.1",
+    "typescript": "^3.8.2"
   }
 }

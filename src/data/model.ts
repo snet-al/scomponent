@@ -1,20 +1,20 @@
 export default class Model {
-  private translateFields = {};
+  private translateFields = {}
 
   public factory(data: Object): any {
     if (!data) {
-      return;
+      return
     }
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        let rawData = data[key];
-        key = this.translate(key);
-        if (this.hasOwnProperty(key) || typeof rawData !== "undefined") {
-          let goDeep = this[key] instanceof Model;
+        let rawData = data[key]
+        key = this.translate(key)
+        if (this.hasOwnProperty(key) || typeof rawData !== 'undefined') {
+          let goDeep = this[key] instanceof Model
           if (goDeep) {
-            this[key].factory(rawData);
+            this[key].factory(rawData)
           }
-          (<any>this)[key] = rawData;
+          ;(<any>this)[key] = rawData
         }
       }
     }
@@ -22,12 +22,12 @@ export default class Model {
 
   public translate(key: string) {
     if (!this.translateFields || !this.translateFields[key]) {
-      return key;
+      return key
     }
-    return this.translateFields[key];
+    return this.translateFields[key]
   }
 
   public setTranslateField(obj: object) {
-    this.translateFields = obj;
+    this.translateFields = obj
   }
 }
