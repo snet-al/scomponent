@@ -29,5 +29,6 @@ export default class Model {
 
   public setTranslateField(obj: object) {
     this.translateFields = obj
+    return this
   }
 }

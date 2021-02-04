@@ -1,19 +1,17 @@
 import Model from './model'
 
 export default class store<T extends Model> {
-  private data: T[]
-
-  constructor(...elements: T[]) {
-    this.data = elements.map((el: any) => {
-      let a = new Object() as T
-      a.factory(el)
-      return a
-    })
+  private data: T[] = []
+  private translateFields: any = {}
+  constructor(translateFields?: any) {
+    this.translateFields = translateFields || {}
   }
 
   add(t: any): T {
-    let a = new Object() as T
-    this.data.push(a.factory(t))
+    let a = new Model() as T
+    a.setTranslateField(this.translateFields)
+    a.factory(t)
+    this.data.push(a)
     return a
   }
 

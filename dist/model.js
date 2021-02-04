@@ -1,17 +1,19 @@
-export default class Model {
-    constructor() {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Model = /** @class */ (function () {
+    function Model() {
         this.translateFields = {};
     }
-    factory(data) {
+    Model.prototype.factory = function (data) {
         if (!data) {
             return;
         }
-        for (let key in data) {
+        for (var key in data) {
             if (data.hasOwnProperty(key)) {
-                let rawData = data[key];
+                var rawData = data[key];
                 key = this.translate(key);
                 if (this.hasOwnProperty(key) || typeof rawData !== 'undefined') {
-                    let goDeep = this[key] instanceof Model;
+                    var goDeep = this[key] instanceof Model;
                     if (goDeep) {
                         this[key].factory(rawData);
                     }
@@ -20,14 +22,16 @@ export default class Model {
                 }
             }
         }
-    }
-    translate(key) {
+    };
+    Model.prototype.translate = function (key) {
         if (!this.translateFields || !this.translateFields[key]) {
             return key;
         }
         return this.translateFields[key];
-    }
-    setTranslateField(obj) {
+    };
+    Model.prototype.setTranslateField = function (obj) {
         this.translateFields = obj;
-    }
-}
+    };
+    return Model;
+}());
+exports.default = Model;
