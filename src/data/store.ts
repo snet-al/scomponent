@@ -1,23 +1,31 @@
-export default class store<T> {
+import Model from './model'
+
+export default class store<T extends Model> {
   private data: T[]
 
   constructor(...elements: T[]) {
-    this.data = elements
+    this.data = elements.map((el: any) => {
+      let a = new Object() as T
+      a.factory(el)
+      return a
+    })
   }
 
-  add(t: T) {
-    this.data.push(t)
+  add(t: any): T {
+    let a = new Object() as T
+    this.data.push(a.factory(t))
+    return a
   }
 
-  remove(t: T) {
+  remove(t: T): void {
     let index = this.data.indexOf(t)
     if (index > -1) {
       this.data.splice(index, 1)
     }
   }
 
-  removeAll() {
-    return (this.data = [])
+  removeAll(): void {
+    this.data = []
   }
 
   removeAt(index: number) {
