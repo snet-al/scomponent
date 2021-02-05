@@ -61,6 +61,7 @@ class MyStore extends Store<Person> {
 
 let st2 = MyStore.getInstance()
 
-st2.add({})
+st2.add({ name: 'bledi' })
 
+console.log(st2.findItem('name', 'bledi').age)
 console.log(st2)
