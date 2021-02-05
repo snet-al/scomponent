@@ -51,7 +51,7 @@ class MyStore extends Store<Person> {
   private static instance: MyStore = new MyStore()
 
   private constructor() {
-    super(Person)
+    super(Person, {})
   }
 
   public static getInstance(): MyStore {
