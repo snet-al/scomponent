@@ -15,10 +15,13 @@ export default class store<T extends Model> {
       t = [t]
     }
     t.forEach((el: any) => {
-      let a = new this.model()
-      a.setTranslateField(this.translateFields)
-      a.factory(el)
-      this.data.push(a)
+      if (el instanceof this.model) {
+        this.data.push(el)
+      } else {
+        let a = new this.model()
+        a.setTranslateField(this.translateFields)
+        a.factory(el)
+      }
     })
   }
 
@@ -108,26 +111,6 @@ export default class store<T extends Model> {
 //     public indices: any[]  = [];
 //     public original: any[] = [];
 //     public filtered: any[] = [];
-
-//     constructor(config: any) {
-//         //to do
-//     }
-
-//     public removeAt (index: number) {
-//         if (index < this.data.length && index >= 0) {
-//             this.data.splice(index, 1);
-//         }
-//         this.original = this.data;
-//     }
-
-//     public removeAll () {
-//         this.data = [];
-//         this.original = [];
-//     };
-
-//     public getAt (index: number) {
-//         return this.data[index];
-//     };
 
 //     public average (fieldName:string) : undefined | number{
 //         let canCalculate = false;
