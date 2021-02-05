@@ -4,10 +4,19 @@ export default class store<T extends Model> {
   private data: T[] = []
   private translateFields: any = {}
   private model: any
+  public primaryKey = 'id'
 
   constructor(model?: any, translateFields?: any) {
     this.model = model || Model
     this.translateFields = translateFields || {}
+  }
+
+  public setPrimaryKey(primaryKey = 'id') {
+    this.primaryKey = primaryKey
+  }
+
+  public getPrimaryKey() {
+    return this.primaryKey
   }
 
   add(t: any): void {
