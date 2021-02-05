@@ -3,16 +3,23 @@ import Model from './model'
 export default class store<T extends Model> {
   private data: T[] = []
   private translateFields: any = {}
-  constructor(translateFields?: any) {
+  private model: any
+
+  constructor(model?: any, translateFields?: any) {
+    this.model = model || Model
     this.translateFields = translateFields || {}
   }
 
-  add(t: any): T {
-    let a = new Model() as T
-    a.setTranslateField(this.translateFields)
-    a.factory(t)
-    this.data.push(a)
-    return a
+  add(t: any): void {
+    if (!(t instanceof Array)) {
+      t = [t]
+    }
+    t.forEach((el: any) => {
+      let a = new this.model()
+      a.setTranslateField(this.translateFields)
+      a.factory(el)
+      this.data.push(a)
+    })
   }
 
   remove(t: T): void {
@@ -26,13 +33,13 @@ export default class store<T extends Model> {
     this.data = []
   }
 
-  removeAt(index: number) {
+  removeAt(index: number): void {
     if (index < this.data.length && index >= -this.data.length) {
       this.data.splice(index, 1)
     }
   }
 
-  removeMultiple(indexes: number[]) {
+  removeMultiple(indexes: number[]): void {
     if (indexes.length <= this.data.length) {
       const sorted = indexes.sort(function (a, b) {
         return b - a
@@ -47,7 +54,7 @@ export default class store<T extends Model> {
     }
   }
 
-  sort(compareCondition: string | number, sortOrder = 'asc') {
+  sort(compareCondition: string | number, sortOrder = 'asc'): any {
     for (let i = 0, len = this.data.length; i < len - 1; i++) {
       for (let j = i + 1, len = this.data.length; j < len; j++) {
         if (sortOrder === 'asc') {
@@ -61,7 +68,7 @@ export default class store<T extends Model> {
         }
       }
     }
-    return this.data
+    return this
   }
 
   findItem(key: string, value: any) {
@@ -93,8 +100,6 @@ export default class store<T extends Model> {
     return this.data[index]
   }
 }
-
-console.log()
 
 // export default class Store {
 
