@@ -49,7 +49,7 @@ storeOfPersons.add([person1, { name: 'bledi', last_name: 'Shehu' }])
 
 class MyStore extends Store<Person> {
   private static instance: MyStore = new MyStore()
-
+  primaryKey = 'id'
   private constructor() {
     super(Person, {})
   }
@@ -63,5 +63,5 @@ let st2 = MyStore.getInstance()
 
 st2.add({ name: 'bledi' })
 
-console.log(st2.findItem('name', 'bledi').age)
-console.log(st2)
+console.log(st2.findItem('name', 'bledid')?.name)
+//console.log(st2)

@@ -2,9 +2,9 @@ import Model from './model'
 
 export default class store<T extends Model> {
   private data: T[] = []
-  private translateFields: any = {}
   private model: any
   public primaryKey = 'id'
+  private translateFields: any = {}
 
   constructor(model?: any, translateFields?: any) {
     this.model = model || Model
@@ -23,6 +23,7 @@ export default class store<T extends Model> {
     if (!(t instanceof Array)) {
       t = [t]
     }
+
     t.forEach((el: any) => {
       if (el instanceof this.model) {
         this.data.push(el)
@@ -30,6 +31,7 @@ export default class store<T extends Model> {
         let a = new this.model()
         a.setTranslateField(this.translateFields)
         a.factory(el)
+        this.data.push(a)
       }
     })
   }
