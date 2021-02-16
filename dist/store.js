@@ -1,81 +1,98 @@
-export default class store {
-    constructor(...elements) {
-        this.data = elements;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var store = /** @class */ (function () {
+    function store() {
+        var elements = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            elements[_i] = arguments[_i];
+        }
+        this.data = elements.map(function (el) {
+            var a = new Object();
+            a.factory(el);
+            return a;
+        });
     }
-    add(t) {
-        this.data.push(t);
-    }
-    remove(t) {
-        let index = this.data.indexOf(t);
+    store.prototype.add = function (t) {
+        var a = new Object();
+        this.data.push(a.factory(t));
+        return a;
+    };
+    store.prototype.remove = function (t) {
+        var index = this.data.indexOf(t);
         if (index > -1) {
             this.data.splice(index, 1);
         }
-    }
-    removeAll() {
-        return (this.data = []);
-    }
-    removeAt(index) {
+    };
+    store.prototype.removeAll = function () {
+        this.data = [];
+    };
+    store.prototype.removeAt = function (index) {
         if (index < this.data.length && index >= -this.data.length) {
             this.data.splice(index, 1);
         }
-    }
-    removeMultiple(indexes) {
+    };
+    store.prototype.removeMultiple = function (indexes) {
+        var _this = this;
         if (indexes.length <= this.data.length) {
-            const sorted = indexes.sort(function (a, b) {
+            var sorted = indexes.sort(function (a, b) {
                 return b - a;
             });
-            const unique = new Set(sorted);
-            unique.forEach((index) => {
-                if (index < this.data.length) {
-                    this.data.splice(index, 1);
+            var unique = new Set(sorted);
+            unique.forEach(function (index) {
+                if (index < _this.data.length) {
+                    _this.data.splice(index, 1);
                 }
             });
         }
-    }
-    sort(compareCondition, sortOrder = 'asc') {
-        for (let i = 0, len = this.data.length; i < len - 1; i++) {
-            for (let j = i + 1, len = this.data.length; j < len; j++) {
+    };
+    store.prototype.sort = function (compareCondition, sortOrder) {
+        var _a, _b;
+        if (sortOrder === void 0) { sortOrder = 'asc'; }
+        for (var i = 0, len = this.data.length; i < len - 1; i++) {
+            for (var j = i + 1, len_1 = this.data.length; j < len_1; j++) {
                 if (sortOrder === 'asc') {
                     if (this.data[i][compareCondition] > this.data[j][compareCondition]) {
                         ;
-                        [this.data[i], this.data[j]] = [this.data[j], this.data[i]];
+                        _a = [this.data[j], this.data[i]], this.data[i] = _a[0], this.data[j] = _a[1];
                     }
                 }
                 else {
                     if (this.data[i][compareCondition] < this.data[j][compareCondition]) {
                         ;
-                        [this.data[i], this.data[j]] = [this.data[j], this.data[i]];
+                        _b = [this.data[j], this.data[i]], this.data[i] = _b[0], this.data[j] = _b[1];
                     }
                 }
             }
         }
         return this.data;
-    }
-    findItem(key, value) {
-        let item = {};
-        for (let i = 0, len = this.data.length; i < len; i++) {
+    };
+    store.prototype.findItem = function (key, value) {
+        var item = {};
+        for (var i = 0, len = this.data.length; i < len; i++) {
             item[this.data[i][key]] = this.data[i];
         }
         return item[value];
-    }
-    findIndex(key, value) {
-        return this.data.findIndex((item) => item[key] === value);
-    }
-    filterBy(key, value) {
+    };
+    store.prototype.findIndex = function (key, value) {
+        return this.data.findIndex(function (item) { return item[key] === value; });
+    };
+    store.prototype.filterBy = function (key, value) {
         return this.data.filter(function (item) {
             return item[key] === value;
         });
-    }
-    getStore() {
+    };
+    store.prototype.getStore = function () {
         return this.data;
-    }
-    getAt(index) {
+    };
+    store.prototype.getAt = function (index) {
         if (index > this.data.length) {
             return;
         }
         return this.data[index];
-    }
-}
+    };
+    return store;
+}());
+exports.default = store;
 console.log();
 // export default class Store {
 //     public model: model;

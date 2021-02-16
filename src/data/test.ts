@@ -1,24 +1,23 @@
 import Model from './model'
 import Store from './store'
 
-interface PersonI {
-  id?: number
-  name?: string
-  lastName?: string
-  age?: number
-  address?: string
-}
-
 class Person extends Model {
-  private static instance: PersonI = new Person()
+  private static instance: Person = new Person()
   id: number = 0
   age: number = 0
   name: string = ''
   address: string = ''
   lastName: string = ''
 
-  public static getInstance(): PersonI {
-    return Person.instance
+  public constructor() {
+    super()
+    this.setTranslateField({
+      last_name: 'lastName',
+    })
+  }
+
+  public static getInstance(): Person {
+    return this.instance
   }
 }
 
@@ -29,7 +28,40 @@ const personData1: any = {
   address: 'grono strasse 1 berlin',
   last_name: 'last-Name',
 }
-const person1 = new Person()
-person1.setTranslateField({ last_name: 'lastName' })
+const person1 = Person.getInstance()
 person1.factory(personData1)
-console.log(person1)
+//console.log(person1)
+
+let storeOfPersons = new Store<Person>(Person, { last_name: 'lastName' })
+
+storeOfPersons.add({})
+storeOfPersons.add(personData1)
+storeOfPersons.add({
+  name: 'name2 surname',
+  age: 32,
+  address: 'grono strasse 2 berlin',
+  last_name: 'last-Name-2',
+})
+storeOfPersons.add([person1, { name: 'bledi', last_name: 'Shehu' }])
+
+//console.log(storeOfPersons.getStore())
+//console.log(storeOfPersons.getAt(1))
+
+class MyStore extends Store<Person> {
+  private static instance: MyStore = new MyStore()
+  primaryKey = 'id'
+  private constructor() {
+    super(Person, {})
+  }
+
+  public static getInstance(): MyStore {
+    return MyStore.instance
+  }
+}
+
+let st2 = MyStore.getInstance()
+
+st2.add({ name: 'bledi' })
+
+console.log(st2.findItem('name', 'bledid')?.name)
+//console.log(st2)

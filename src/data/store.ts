@@ -1,32 +1,59 @@
-export default class store<T> {
-  private data: T[]
+import Model from './model'
 
-  constructor(...elements: T[]) {
-    this.data = elements
+export default class store<T extends Model> {
+  private data: T[] = []
+  private model: any
+  public primaryKey = 'id'
+  private translateFields: any = {}
+
+  constructor(model?: any, translateFields?: any) {
+    this.model = model || Model
+    this.translateFields = translateFields || {}
   }
 
-  add(t: T) {
-    this.data.push(t)
+  public setPrimaryKey(primaryKey = 'id') {
+    this.primaryKey = primaryKey
   }
 
-  remove(t: T) {
+  public getPrimaryKey() {
+    return this.primaryKey
+  }
+
+  add(t: any): void {
+    if (!(t instanceof Array)) {
+      t = [t]
+    }
+
+    t.forEach((el: any) => {
+      if (el instanceof this.model) {
+        this.data.push(el)
+      } else {
+        let a = new this.model()
+        a.setTranslateField(this.translateFields)
+        a.factory(el)
+        this.data.push(a)
+      }
+    })
+  }
+
+  remove(t: T): void {
     let index = this.data.indexOf(t)
     if (index > -1) {
       this.data.splice(index, 1)
     }
   }
 
-  removeAll() {
-    return (this.data = [])
+  removeAll(): void {
+    this.data = []
   }
 
-  removeAt(index: number) {
+  removeAt(index: number): void {
     if (index < this.data.length && index >= -this.data.length) {
       this.data.splice(index, 1)
     }
   }
 
-  removeMultiple(indexes: number[]) {
+  removeMultiple(indexes: number[]): void {
     if (indexes.length <= this.data.length) {
       const sorted = indexes.sort(function (a, b) {
         return b - a
@@ -41,7 +68,7 @@ export default class store<T> {
     }
   }
 
-  sort(compareCondition: string | number, sortOrder = 'asc') {
+  sort(compareCondition: string | number, sortOrder = 'asc'): any {
     for (let i = 0, len = this.data.length; i < len - 1; i++) {
       for (let j = i + 1, len = this.data.length; j < len; j++) {
         if (sortOrder === 'asc') {
@@ -55,7 +82,7 @@ export default class store<T> {
         }
       }
     }
-    return this.data
+    return this
   }
 
   findItem(key: string, value: any) {
@@ -88,8 +115,6 @@ export default class store<T> {
   }
 }
 
-console.log()
-
 // export default class Store {
 
 //     public model: model;
@@ -97,26 +122,6 @@ console.log()
 //     public indices: any[]  = [];
 //     public original: any[] = [];
 //     public filtered: any[] = [];
-
-//     constructor(config: any) {
-//         //to do
-//     }
-
-//     public removeAt (index: number) {
-//         if (index < this.data.length && index >= 0) {
-//             this.data.splice(index, 1);
-//         }
-//         this.original = this.data;
-//     }
-
-//     public removeAll () {
-//         this.data = [];
-//         this.original = [];
-//     };
-
-//     public getAt (index: number) {
-//         return this.data[index];
-//     };
 
 //     public average (fieldName:string) : undefined | number{
 //         let canCalculate = false;
