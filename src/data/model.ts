@@ -1,3 +1,5 @@
+import Store from './store'
+
 export default class Model {
   private translateFields = {}
 
@@ -10,11 +12,17 @@ export default class Model {
         let rawData = data[key]
         key = this.translate(key)
         if (this.hasOwnProperty(key) || typeof rawData !== 'undefined') {
-          let goDeep = this[key] instanceof Model
+          const goDeep = this[key] instanceof Model
+          const isStore = this[key] instanceof Store
+
           if (goDeep) {
             this[key].factory(rawData)
           }
-          ;(<any>this)[key] = rawData
+          if (isStore) {
+            this[key].add(rawData)
+          } else {
+            ;(<any>this)[key] = rawData
+          }
         }
       }
     }

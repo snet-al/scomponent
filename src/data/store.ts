@@ -103,12 +103,6 @@ export default class store<T extends Model> {
     })
   }
 
-  search(key: string, value: any) {
-    return this.data.filter(item => {
-      return item[key].toLowerCase().includes(value.toLowerCase())
-    })
-  }
-
   getStore(): T[] {
     return this.data
   }
