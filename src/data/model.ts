@@ -12,10 +12,10 @@ export default class Model {
         let rawData = data[key]
         key = this.translate(key)
         if (this.hasOwnProperty(key) || typeof rawData !== 'undefined') {
-          const goDeep = this[key] instanceof Model
+          const isModel = this[key] instanceof Model
           const isStore = this[key] instanceof Store
 
-          if (goDeep) {
+          if (isModel) {
             this[key].factory(rawData)
           } else if (isStore) {
             this[key].add(rawData)
