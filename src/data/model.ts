@@ -17,8 +17,7 @@ export default class Model {
 
           if (goDeep) {
             this[key].factory(rawData)
-          }
-          if (isStore) {
+          } else if (isStore) {
             this[key].add(rawData)
           } else {
             ;(<any>this)[key] = rawData
